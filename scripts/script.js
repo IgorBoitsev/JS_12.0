@@ -4,7 +4,7 @@ let addExpenses = 'Квартира, машина, интернет, телеф�
 let deposit = true;
 let mission = 500000;
 let period = 12;
-let budgetDay = 75000;
+let budgetDay = money/30;
 
 console.log(typeof money);
 console.log(typeof income);
@@ -13,8 +13,7 @@ console.log(addExpenses.length);
 console.log("Период равен " + period + " месяцев.");
 console.log("Цель: заработать " + mission + " долларов.");
 
-addExpenses.toLowerCase;
-let exp = addExpenses.split(',');
+let exp = addExpenses.toLowerCase().split(',');
 console.log(exp);
 
 console.log(budgetDay);
