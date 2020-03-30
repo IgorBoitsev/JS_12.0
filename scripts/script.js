@@ -21,7 +21,14 @@ let amount1 = prompt('Во сколько это обойдется?');
 let expenses2 = prompt('Введите еще одну обязательную статью расходов.');
 let amount2 = prompt('Во сколько это обойдется?');
 // №6
-
+let budgetMonth = money - amount1 - amount2;
+console.log('Бюджет на месяц: ' + budgetMonth);
+// №7
+console.log('Цель будет достигнута за ' + Math.ceil(mission/budgetMonth) + ' месяцев.');
+// №8
+budgetDay = Math.floor(budgetMonth/30);
+console.log('Бюджет на день: ' + budgetDay);
+// №9
 
 
 console.log(deposit);
