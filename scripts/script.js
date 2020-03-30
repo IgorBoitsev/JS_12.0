@@ -17,3 +17,5 @@ let exp = addExpenses.toLowerCase().split(',');
 console.log(exp);
 
 console.log(budgetDay);
+
+// Новое задание
