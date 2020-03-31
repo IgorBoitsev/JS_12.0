@@ -3,38 +3,59 @@
 // Объявление используемых переменных
 let money;
 let income = 'Строительство';
-let addExpenses;
+let addExpenses = [];
 let deposit = true;
 let mission = 500000;
 let period = 12;
-let budgetDay = money/30;
+let budgetDay;
 
-// №2
 money = prompt('Ваш месячный доход?');
-// №3
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
-// №4
 deposit = confirm('Есть ли у вас депозит в банке?');
-// №5
+
 let expenses1 = prompt('Введите обязательную статью расходов.');
 let amount1 = +prompt('Во сколько это обойдется?');
 let expenses2 = prompt('Введите еще одну обязательную статью расходов.');
 let amount2 = +prompt('Во сколько это обойдется?');
-// №6
-let budgetMonth = money - amount1 - amount2;
-console.log('Бюджет на месяц: ' + budgetMonth);
-// №7
-if (budgetMonth > 0)
-  console.log('Цель будет достигнута за ' + Math.ceil(mission/budgetMonth) + ' месяцев.');
-// №8
-budgetDay = Math.floor(budgetMonth/30);
-if (budgetDay > 0)
-  console.log('Бюджет на день: ' + budgetDay);
-// №9
-if (budgetDay > 1200)
-  console.log('У вас высокий уровень дохода.');
-  else if (budgetDay > 600) {
+// №1
+let getExpensesMonth = function() {
+  return amount1 + amount2;
+}
+// №2
+let getAccumulatedMonth = function() {
+  return money - (amount1 + amount2);
+}
+// №3
+let accumulatedMonth = getAccumulatedMonth();
+// №4
+let getTargetMonth = function() {
+  return Math.ceil(mission/accumulatedMonth)
+};
+
+if (getTargetMonth() > 0) {
+
+  // №6
+  budgetDay = Math.floor(accumulatedMonth/30);
+
+  if (budgetDay > 1200)
+    console.log('У вас высокий уровень дохода.');
+    else if (budgetDay > 600) {
         console.log('У вас средний уровень дохода.');
         } else if (budgetDay > 0) {
               console.log('К сложалению, у вас уровень дохода ниже среднего.')
-              } else console.log('Вы за еду работаете?');
+              } 
+  console.log('Ваши расходы за месяц: ' + getExpensesMonth());
+  console.log('Все это уходит на: ' + addExpenses);
+  console.log('Бюджет на день: ' + budgetDay);
+  console.log('Цель будет достигнута за ' + getTargetMonth() + ' месяцев.');
+
+  
+} else {
+    console.log('Вы за еду работаете?');
+  }
+ 
+function showTypeOf(data) {
+  console.log(typeof data);
+}
+
+showTypeOf(budgetDay);
