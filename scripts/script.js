@@ -31,25 +31,26 @@ let accumulatedMonth = getAccumulatedMonth();
 let getTargetMonth = function() {
   return Math.ceil(mission/accumulatedMonth)
 };
+budgetDay = Math.floor(accumulatedMonth/30);
+
+let getStatusIncome = function() {
+  if (budgetDay > 1200)
+    return ('У вас высокий уровень дохода.');
+      else if (budgetDay > 600) {
+        return ('У вас средний уровень дохода.');
+        } else {
+              return ('К сложалению, у вас уровень дохода ниже среднего.');
+              }
+}
 
 if (getTargetMonth() > 0) {
 
-  // №6
-  budgetDay = Math.floor(accumulatedMonth/30);
-
-  if (budgetDay > 1200)
-    console.log('У вас высокий уровень дохода.');
-    else if (budgetDay > 600) {
-        console.log('У вас средний уровень дохода.');
-        } else if (budgetDay > 0) {
-              console.log('К сложалению, у вас уровень дохода ниже среднего.')
-              } 
+  console.log(getStatusIncome());
   console.log('Ваши расходы за месяц: ' + getExpensesMonth());
   console.log('Все это уходит на: ' + addExpenses);
   console.log('Бюджет на день: ' + budgetDay);
   console.log('Цель будет достигнута за ' + getTargetMonth() + ' месяцев.');
 
-  
 } else {
     console.log('Вы за еду работаете?');
   }
