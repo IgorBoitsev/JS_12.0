@@ -38,16 +38,3 @@ if (budgetDay > 1200)
         } else if (budgetDay > 0) {
               console.log('К сложалению, у вас уровень дохода ниже среднего.')
               } else console.log('Вы за еду работаете?');
-
-// Функционал из прошлых заданий
-/*console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
-console.log(addExpenses.length);
-console.log("Период равен " + period + " месяцев.");
-console.log("Цель: заработать " + mission + " долларов.");
-
-let exp = addExpenses.toLowerCase().split(',');
-console.log(exp);
-
-console.log(budgetDay);*/
