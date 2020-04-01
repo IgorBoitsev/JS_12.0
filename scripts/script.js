@@ -26,7 +26,7 @@ do
 while (!isNumber(money));
 
 // addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
-deposit = confirm('Есть ли у вас депозит в банке?');
+// deposit = confirm('Есть ли у вас депозит в банке?');
 
 // Суммарная величина обязательных ваплат за месяц 
 let getExpensesMonth = function() {
@@ -35,9 +35,12 @@ let getExpensesMonth = function() {
   for (let i = 1; i <= count; i++) {
     // Названия статей расходов заносятся в массив
     let name = prompt('Введите ' + i + ' обязательную статью расходов.');
-    let amount = +prompt('Во сколько это обойдется?');
-    // Заносим данные в объект
-    expensesAmount['"' + name + '"'] = amount;
+    
+    do {
+      let amount = +prompt('Во сколько это обойдется?');
+      // Заносим данные в объект
+      expensesAmount['"' + name + '"'] = amount;
+    } while (isNumber(amount));
     // Суммируем все расходы
     sum += amount;
   }
