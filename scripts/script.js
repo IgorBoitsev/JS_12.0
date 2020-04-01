@@ -40,7 +40,7 @@ let getExpensesMonth = function() {
       let amount = +prompt('Во сколько это обойдется?');
       // Заносим данные в объект
       expensesAmount['"' + name + '"'] = amount;
-    } while (isNumber(amount));
+    } while (!isNumber(amount));
     // Суммируем все расходы
     sum += amount;
   }
