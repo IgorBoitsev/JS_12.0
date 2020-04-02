@@ -31,13 +31,14 @@ while (!isNumber(money));
 // Суммарная величина обязательных ваплат за месяц 
 let getExpensesMonth = function() {
   let sum = 0;
+  let amount = 0;
   let count = +prompt('Сколько у вас статей расхода?');
   for (let i = 1; i <= count; i++) {
     // Названия статей расходов заносятся в массив
     let name = prompt('Введите ' + i + ' обязательную статью расходов.');
     
     do {
-      let amount = +prompt('Во сколько это обойдется?');
+      amount = +prompt('Во сколько это обойдется?');
       // Заносим данные в объект
       expensesAmount['"' + name + '"'] = amount;
     } while (!isNumber(amount));
@@ -77,7 +78,7 @@ let getStatusIncome = function() {
 if (getTargetMonth() > 0) {
   console.log(getStatusIncome());
   console.log('Ваши расходы за месяц: ' + expensesMonth);
-  console.log('Все это уходит на: ' + addExpenses);
+  // console.log('Все это уходит на: ' + addExpenses);
   console.log('Бюджет на день: ' + budgetDay);
   console.log('Цель будет достигнута за ' + getTargetMonth() + ' месяцев.');
 } else {
