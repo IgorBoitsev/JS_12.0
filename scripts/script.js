@@ -38,12 +38,12 @@ let getExpensesMonth = function() {
     let name = prompt('Введите ' + i + ' обязательную статью расходов.');
     
     do {
-      amount = +prompt('Во сколько это обойдется?');
+      amount = prompt('Во сколько это обойдется?');
       // Заносим данные в объект
       expensesAmount['"' + name + '"'] = amount;
     } while (!isNumber(amount));
     // Суммируем все расходы
-    sum += amount;
+    sum += +amount;
   }
   return sum;
 }
