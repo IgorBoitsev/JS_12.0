@@ -5,11 +5,6 @@ let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-// Функция проверки типа данных конкретных переменных
-function showTypeOf(data) {
-  console.log(typeof data);
-}
-
 // Объявление используемых переменных
 let money,
     income = 'Строительство',
@@ -20,9 +15,16 @@ let money,
     budgetDay,
     expensesAmount = {};
 
+let appData = {
+  budget : 0,
+  budgetDay : 0,
+  budgetMonth : 0,
+  expensesMonth : 0
+}
+
 // Проверка ввода числового значения
 do
-  money = prompt('Каков ваш месячный доход?');
+  appData.budget = prompt('Каков ваш месячный доход?');
 while (!isNumber(money));
 
 // addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
@@ -85,5 +87,4 @@ if (getTargetMonth() > 0) {
     console.log('Вы за еду работаете? К сожалению, цель не будет достигнута.');
   }
 
-// showTypeOf(expensesMonth);
 // console.log(expensesAmount);
