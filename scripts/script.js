@@ -10,7 +10,7 @@ let appData = {
   income = 'Строительство',
   deposit,
   period = 12,
-  addIncome = [];
+  addIncome = [],
   mission : 500000,
   budget : 0,
   budgetDay : 0,
