@@ -5,13 +5,12 @@ let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-let income = 'Строительство',
-    deposit,
-    period = 12,
-    addIncome = [];
-
 // Объявление используемого объекта
 let appData = {
+  income = 'Строительство',
+  deposit,
+  period = 12,
+  addIncome = [];
   mission : 500000,
   budget : 0,
   budgetDay : 0,
@@ -62,8 +61,8 @@ let appData = {
   },
 }
 
-// addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
-// deposit = confirm('Есть ли у вас депозит в банке?');
+appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
+appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
 // Проверка ввода числового значения
 let start = function() {
