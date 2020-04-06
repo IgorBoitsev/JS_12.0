@@ -18,6 +18,8 @@ let appData = {
   expensesMonth : 0,
   expenses : {},
   asking : function() {
+    appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
+    appData.deposit = confirm('Есть ли у вас депозит в банке?');
     // Заполнение статей расхода
     let amount = 0;
     let count = +prompt('Сколько у вас статей расхода?');
@@ -60,9 +62,6 @@ let appData = {
             }
   },
 }
-
-appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
-appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
 // Проверка ввода числового значения
 let start = function() {
