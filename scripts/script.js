@@ -7,10 +7,10 @@ let isNumber = function(n) {
 
 // Объявление используемого объекта
 let appData = {
-  income = 'Строительство',
-  deposit,
-  period = 12,
-  addIncome = [],
+  income : 'Строительство',
+  deposit : false,
+  period : 12,
+  addIncome : [],
   mission : 500000,
   budget : 0,
   budgetDay : 0,
