@@ -4,6 +4,13 @@
 let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+// Функция проверки данных на соотвествие строковому типу
+let isString = function(s) {
+  if (typeof s == 'string')
+    return true;
+  else
+    return false;
+}
 
 // Объявление используемого объекта
 let appData = {
@@ -18,24 +25,34 @@ let appData = {
   budgetDay : 0,
   budgetMonth : 0,
   expensesMonth : 0,
+  addExpenses : [],
   expenses : {},
   asking : function() {
 
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
-      let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Программирование');
-      let cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?', '15000');
-      appData.income[cashIncome] = cashIncome; 
+      let itemIncome, cashIncome;
+      do {
+        itemIncome = prompt('Какой у вас дополнительный заработок?', 'Программирование');
+      } while (!isString(itemIncome));
+      do {
+        cashIncome = +prompt('Сколько в месяц вы на этом зарабатываете?', '15000');
+        appData.income[itemIncome] = cashIncome;
+      } while (!isNumber(cashIncome));
     }
 
-    appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
+    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
+    appData.addExpenses = addExpenses.toLocaleLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     // Заполнение статей расхода
-    let amount = 0;
-    let count = +prompt('Сколько у вас статей расхода?', '2');
+    let amount, count;
+    do {
+      count = +prompt('Сколько у вас статей расхода?', '2');
+    } while (!isNumber(count));
     for (let i = 1; i <= count; i++) {
       // Названия статей расходов заносятся в массив
-      let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
-      
+      do {
+        let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
+      } while (!isString(name));
       do {
         amount = prompt('Во сколько это обойдется?', '3700');
         // Заносим данные в объект
@@ -72,8 +89,12 @@ let appData = {
   },
   getInfoDeposit : function() {
     if (appData.deposit) {
-      appData.percentDeposit = prompt('Какой годовой процент?', '6');
-      appData.moneyDeposit = prompt('Какая сумма заложена?', '37000');
+      do {
+        appData.percentDeposit = +prompt('Какой годовой процент?', '6');
+      } while (!isNumber(appData.percentDeposit));
+      do {
+        appData.moneyDeposit = +prompt('Какая сумма заложена?', '37000');
+      } while (!isNumber(appData.moneyDeposit));
     }
   },
   calcSavedMoney :  function() {
@@ -83,9 +104,9 @@ let appData = {
 
 // Проверка ввода числового значения
 let start = function() {
-  do
+  do {
     appData.budget = prompt('Каков ваш месячный доход?');
-  while (!isNumber(appData.budget));
+  } while (!isNumber(appData.budget));
 }
 
 start();
@@ -111,3 +132,11 @@ console.log('Наша программа включает в себя следу
 for(let key in appData) {
   console.log('Свойство объекта: ' + key + '; его значение: ' + appData[key] + '.');
 }
+
+// Вывод возможных расходов в консоль
+let str = '';
+for (let i = 0; i < appData.addExpenses.length; i++) {
+  appData.addExpenses[i] = appData.addExpenses[i].trim();
+  str = str + appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
+}
+console.log(str.slice(0, str.length - 2));
