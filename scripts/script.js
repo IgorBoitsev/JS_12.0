@@ -4,13 +4,6 @@
 let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-// Функция проверки данных на соотвествие строковому типу
-let isString = function(s) {
-  if (typeof s == 'string')
-    return true;
-  else
-    return false;
-}
 
 // Объявление используемого объекта
 let appData = {
@@ -33,7 +26,7 @@ let appData = {
       let itemIncome, cashIncome;
       do {
         itemIncome = prompt('Какой у вас дополнительный заработок?', 'Программирование');
-      } while (!isString(itemIncome));
+      } while (isNumber(itemIncome));
       do {
         cashIncome = +prompt('Сколько в месяц вы на этом зарабатываете?', '15000');
         appData.income[itemIncome] = cashIncome;
@@ -41,7 +34,7 @@ let appData = {
     }
 
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
-    appData.addExpenses = addExpenses.toLocaleLowerCase().split(',');
+    appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     // Заполнение статей расхода
     let amount, count;
@@ -50,9 +43,7 @@ let appData = {
     } while (!isNumber(count));
     for (let i = 1; i <= count; i++) {
       // Названия статей расходов заносятся в массив
-      do {
-        let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
-      } while (!isString(name));
+      let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
       do {
         amount = prompt('Во сколько это обойдется?', '3700');
         // Заносим данные в объект
@@ -113,6 +104,7 @@ start();
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
+appData.getInfoDeposit();
 appData.getTargetMonth();
 appData.getStatusIncome();
 
