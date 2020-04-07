@@ -23,33 +23,36 @@ let appData = {
   asking : function() {
 
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
-      let itemIncome, cashIncome;
+      let itemIncome, cashIncome, item;
       do {
-        itemIncome = prompt('Какой у вас дополнительный заработок?', 'Программирование');
-      } while (isNumber(itemIncome));
+        item = prompt('Какой у вас дополнительный заработок?', 'Программирование');
+        console.log(item);
+        itemIncome = item.trim();
+        console.log(itemIncome);
+      } while (isNumber(itemIncome) && itemIncome !== '');
       do {
         cashIncome = +prompt('Сколько в месяц вы на этом зарабатываете?', '15000');
         appData.income[itemIncome] = cashIncome;
       } while (!isNumber(cashIncome));
     }
 
-    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
-    appData.addExpenses = addExpenses.toLowerCase().split(',');
-    appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    // Заполнение статей расхода
-    let amount, count;
-    do {
-      count = +prompt('Сколько у вас статей расхода?', '2');
-    } while (!isNumber(count));
-    for (let i = 1; i <= count; i++) {
-      // Названия статей расходов заносятся в массив
-      let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
-      do {
-        amount = prompt('Во сколько это обойдется?', '3700');
-        // Заносим данные в объект
-        appData.expenses[name] = amount;
-      } while (!isNumber(amount));
-    }
+    // let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
+    // appData.addExpenses = addExpenses.toLowerCase().split(',');
+    // appData.deposit = confirm('Есть ли у вас депозит в банке?');
+    // // Заполнение статей расхода
+    // let amount, count;
+    // do {
+    //   count = +prompt('Сколько у вас статей расхода?', '2');
+    // } while (!isNumber(count));
+    // for (let i = 1; i <= count; i++) {
+    //   // Названия статей расходов заносятся в массив
+    //   let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
+    //   do {
+    //     amount = prompt('Во сколько это обойдется?', '3700');
+    //     // Заносим данные в объект
+    //     appData.expenses[name] = amount;
+    //   } while (!isNumber(amount));
+    // }
     return;
   },
   getExpensesMonth : function() {
@@ -100,35 +103,35 @@ let start = function() {
   } while (!isNumber(appData.budget));
 }
 
-start();
+// start();
 appData.asking();
-appData.getExpensesMonth();
-appData.getBudget();
-appData.getInfoDeposit();
-appData.getTargetMonth();
-appData.getStatusIncome();
+// appData.getExpensesMonth();
+// appData.getBudget();
+// appData.getInfoDeposit();
+// appData.getTargetMonth();
+// appData.getStatusIncome();
 
-// Вывод информации о текущем состоянии
-if (appData.getTargetMonth() > 0) {
-  console.log(appData.getStatusIncome());
-  console.log('Ваши расходы за месяц: ' + appData.expensesMonth);
-  // console.log('Все это уходит на: ' + addExpenses);
-  console.log('Бюджет на день: ' + appData.budgetDay);
-  console.log('Цель будет достигнута за ' + appData.getTargetMonth() + ' месяцев.');
-} else {
-    console.log('Вы за еду работаете? К сожалению, цель не будет достигнута.');
-  }
+// // Вывод информации о текущем состоянии
+// if (appData.getTargetMonth() > 0) {
+//   console.log(appData.getStatusIncome());
+//   console.log('Ваши расходы за месяц: ' + appData.expensesMonth);
+//   // console.log('Все это уходит на: ' + addExpenses);
+//   console.log('Бюджет на день: ' + appData.budgetDay);
+//   console.log('Цель будет достигнута за ' + appData.getTargetMonth() + ' месяцев.');
+// } else {
+//     console.log('Вы за еду работаете? К сожалению, цель не будет достигнута.');
+//   }
 
-// Вывод в консоль всех свойств и значений объекта appData
-console.log('Наша программа включает в себя следующие данные:');
-for(let key in appData) {
-  console.log('Свойство объекта: ' + key + '; его значение: ' + appData[key] + '.');
-}
+// // Вывод в консоль всех свойств и значений объекта appData
+// console.log('Наша программа включает в себя следующие данные:');
+// for(let key in appData) {
+//   console.log('Свойство объекта: ' + key + '; его значение: ' + appData[key] + '.');
+// }
 
-// Вывод возможных расходов в консоль
-let str = '';
-for (let i = 0; i < appData.addExpenses.length; i++) {
-  appData.addExpenses[i] = appData.addExpenses[i].trim();
-  str = str + appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
-}
-console.log(str.slice(0, str.length - 2));
+// // Вывод возможных расходов в консоль
+// let str = '';
+// for (let i = 0; i < appData.addExpenses.length; i++) {
+//   appData.addExpenses[i] = appData.addExpenses[i].trim();
+//   str = str + appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
+// }
+// console.log(str.slice(0, str.length - 2));
