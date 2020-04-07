@@ -33,25 +33,25 @@ let targetAmount = document.querySelector('.target-amount');
 let periodSelect = document.querySelector('.period-select');
 
 // Поле "Доход за месяц"
-let budgetMonthValue = document.querySelector('.budget_month-value');
+let budgetMonthValue = document.getElementsByClassName('result-total')[0];
 
 // Поле "Дневной бюджет"
-let budgetDayValue = document.querySelector('.budget_day-value');
+let budgetDayValue = document.getElementsByClassName('result-total')[1];
 
 // Поле "Расход за месяц"
-let expensesMonthValue = document.querySelector('.expenses_month-value');
+let expensesMonthValue = document.getElementsByClassName('result-total')[2];
 
 // Поле "Возможные доходы"
-let additionalIncomeValue = document.querySelector('.additional_income-value');
+let additionalIncomeValue = document.getElementsByClassName('result-total')[3];
 
 // Поле "Возможные расходы"
-let additionalExpensesValue = document.querySelector('.additional_expenses-value');
+let additionalExpensesValue = document.getElementsByClassName('result-total')[4];
 
 // Поле "Накопления за период"
-let incomePeriodValue = document.querySelector('.income_period-value');
+let incomePeriodValue = document.getElementsByClassName('result-total')[5];
 
 // Поле "Накопления за период"
-let targetMonthValue = document.querySelector('.target_month-value');
+let targetMonthValue = document.getElementsByClassName('result-total')[6];
 
 // Кнопка "Рассчитать"
 let start = document.getElementById('start');
