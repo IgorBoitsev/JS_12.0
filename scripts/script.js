@@ -7,8 +7,10 @@ let isNumber = function(n) {
 
 // Объявление используемого объекта
 let appData = {
-  income : 'Строительство',
+  income : {},
   deposit : false,
+  percentDeposit : 0,
+  moneyDeposit : 0,
   period : 12,
   addIncome : [],
   mission : 500000,
@@ -18,17 +20,24 @@ let appData = {
   expensesMonth : 0,
   expenses : {},
   asking : function() {
-    appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.');
+
+    if (confirm('Есть ли у вас дополнительный источник заработка?')) {
+      let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Программирование');
+      let cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?', '15000');
+      appData.income[cashIncome] = cashIncome; 
+    }
+
+    appData.addIncome = prompt('Перечислите возможные расходы за рассчитываемый период через запятую.', 'Интернет, мобильная связь');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     // Заполнение статей расхода
     let amount = 0;
-    let count = +prompt('Сколько у вас статей расхода?');
+    let count = +prompt('Сколько у вас статей расхода?', '2');
     for (let i = 1; i <= count; i++) {
       // Названия статей расходов заносятся в массив
-      let name = prompt('Введите ' + i + ' обязательную статью расходов.');
+      let name = prompt('Введите ' + i + ' обязательную статью расходов.', i);
       
       do {
-        amount = prompt('Во сколько это обойдется?');
+        amount = prompt('Во сколько это обойдется?', '3700');
         // Заносим данные в объект
         appData.expenses[name] = amount;
       } while (!isNumber(amount));
@@ -61,6 +70,15 @@ let appData = {
               return ('К сложалению, у вас уровень дохода ниже среднего.');
             }
   },
+  getInfoDeposit : function() {
+    if (appData.deposit) {
+      appData.percentDeposit = prompt('Какой годовой процент?', '6');
+      appData.moneyDeposit = prompt('Какая сумма заложена?', '37000');
+    }
+  },
+  calcSavedMoney :  function() {
+    return appData.budgetMonth * appData.period;
+  }
 }
 
 // Проверка ввода числового значения
@@ -93,5 +111,3 @@ console.log('Наша программа включает в себя следу
 for(let key in appData) {
   console.log('Свойство объекта: ' + key + '; его значение: ' + appData[key] + '.');
 }
-
-// console.log(appData);
