@@ -1,57 +1,37 @@
-// // Поле "Месячный доход"
-// let salaryAmount = document.querySelector('.salary-amount');
+'use strict';
 
-// // Поле "Дополнительный доход (наименование)"
-// let extraIncomeTitle = document.querySelector('.extra_income-title');
-// // Поле "Дополнительный доход (сумма)"
-// let extraIncomeAmount = document.querySelector('.extra_income-amount');
+let books = document.querySelector('.books');
+let book = document.getElementsByClassName('book');
 
-// // Кнопка добавления дополнительного дохода
-// let btnIncomeAdd = document.getElementsByTagName('button')[0];
+// Восстановление порядка книг
+books.prepend(book[1]);
+book[1].after(book[4]);         // book[4] - Книга 3
+book[5].after(book[3]);
 
-// // Поле "Возможный доход"
-// let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+// Изменение фоновой картинки
+document.body.style.background = 'url(./image/you-dont-know-js.jpg)';
 
-// // Поле "Обязательные расходы (наименование)"
-// let requiredExpensesTitle = document.querySelector('.required_expenses-title');
-// // Поле "Обязательные расходы (сумма)"
-// let requiredExpensesAmount = document.querySelector('.required_expenses-amount');
+// Изменение заголовка в книге 3
+let h2 = document.getElementsByTagName('h2');
+h2[2].innerHTML = '<a href="https://github.com/azat-io/you-dont-know-js-ru/blob/master/this%20%26%20object%20prototypes/README.md#you-dont-know-js-this--object-prototypes" target="_blank">Книга 3. this и Прототипы Объектов</a>';
 
-// // Кнопка добавления обязательных расходов
-// let btnExpensesAdd = document.getElementsByTagName('button')[1];
+// Удаление рекламы
+document.querySelector('.adv').remove();
 
-// // Поле "Возможные расходы"
-// let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+// Восстановление порядка глав во 2-ой книге
+let liTwo = book[1].querySelectorAll('li');
+liTwo[9].after(liTwo[2]);
+liTwo[3].after(liTwo[6]);
+liTwo[4].before(liTwo[8]);
 
-// // Чекбокс для депозита
-// let depositCheck = document.getElementById('deposit-check');
+// Восстановление порядка глав во 5-ой книге
+let liFive = book[4].querySelectorAll('li');
+liFive[4].after(liFive[2]);
+liFive[7].after(liFive[5]);
+liFive[1].after(liFive[9]);
 
-// // Поле "Цель"
-// let targetAmount = document.querySelector('.target-amount');
-
-// // Ползунок "Период расчета"
-// let periodSelect = document.querySelector('.period-select');
-
-// // Поле "Доход за месяц"
-// let budgetMonthValue = document.getElementsByClassName('result-total')[0];
-
-// // Поле "Дневной бюджет"
-// let budgetDayValue = document.getElementsByClassName('result-total')[1];
-
-// // Поле "Расход за месяц"
-// let expensesMonthValue = document.getElementsByClassName('result-total')[2];
-
-// // Поле "Возможные доходы"
-// let additionalIncomeValue = document.getElementsByClassName('result-total')[3];
-
-// // Поле "Возможные расходы"
-// let additionalExpensesValue = document.getElementsByClassName('result-total')[4];
-
-// // Поле "Накопления за период"
-// let incomePeriodValue = document.getElementsByClassName('result-total')[5];
-
-// // Поле "Накопления за период"
-// let targetMonthValue = document.getElementsByClassName('result-total')[6];
-
-// // Кнопка "Рассчитать"
-// let start = document.getElementById('start');
+// Добавление главы в 6 книгу
+let liSix = book[5].querySelectorAll('li');
+let innerChapter = document.createElement('li');
+innerChapter.innerText = 'Глава 8: За пределами ES6';
+liSix[8].after(innerChapter);
