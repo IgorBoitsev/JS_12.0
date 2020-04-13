@@ -122,7 +122,10 @@ let appData = {
     targetMonthValue.value = appData.getTargetMonth();
     incomePeriodValue.value = appData.accumulateMoney();
 
-    // periodSelect.addEventListener('input', appData.accumulateMoney);
+    // Изменение накоплений за период при изменении значения ползунка periodSelect
+    periodSelect.addEventListener('input', function(){
+      incomePeriodValue.value = appData.accumulateMoney();
+    });
   },
 
   // Функция добавления полей для доходов
@@ -267,7 +270,6 @@ start.addEventListener('click', appData.start);
 btnExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 btnIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.getPeriodAmount);
-periodSelect.addEventListener('input', appData.accumulateMoney);
 
 appData.getInfoDeposit();
 appData.getTargetMonth();
