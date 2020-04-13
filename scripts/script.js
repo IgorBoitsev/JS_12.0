@@ -64,11 +64,8 @@ let targetMonthValue = document.getElementsByClassName('result-total')[6];
 // Кнопка "Рассчитать"
 let start = document.getElementById('start');
 
-
-// Функция проверки введных данных на соответствие числовому типу
-let isNumber = function(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
+// Кнопка "Сбросить"
+let cancel = document.getElementById('cancel');
 
 // Объявление используемого объекта
 let appData = {
@@ -85,7 +82,7 @@ let appData = {
   addExpenses : [],
   expenses : {},
   start : function() {
-
+    
     appData.budget = +salaryAmount.value;
 
     appData.getExpenses();
@@ -96,6 +93,17 @@ let appData = {
     appData.getBudget();
 
     appData.showResult();
+
+    appData.hideShowButtons();
+    appData.blockUnblockTextInputs();
+  },
+
+  // Функция сбороса всех данных
+  cancel : function() {
+
+    appData.hideShowButtons();
+    appData.blockUnblockTextInputs();
+    appData.clearAllTextInputs();
   },
 
   // Проверка на заполнение поля "Месячный доход"
@@ -255,31 +263,54 @@ let appData = {
   // Накопления за выбарнный период
   accumulateMoney :  function() {
     return appData.budgetMonth * periodSelect.value;
+  },
+
+  // Функция отображения кнопок
+  hideShowButtons : function() {
+    if (getComputedStyle(start).display !== 'none') {
+      start.style = 'display: none';
+      cancel.style = 'display: block';
+    } else {
+        start.style = 'display: block';
+        cancel.style = 'display: none';
+      }
+  },
+
+  // Блокировка/разблокировка всех инпутов после нажатия кнопки "Рассчитать"
+  blockUnblockTextInputs : function() {
+    let textInputs = document.querySelectorAll('[type = text]');
+    textInputs.forEach(function(item){
+      if (item.hasAttribute('disabled') == false) {
+        item.setAttribute('disabled', true);
+      } else {
+        item.removeAttribute('disabled');
+      }
+    });
+  },
+
+  // Функция очистки всех текстовых полей
+  clearAllTextInputs : function() {
+    let textInputs = document.querySelectorAll('[type = text]');
+    textInputs.forEach(function(item){
+      item.value = '';
+    });
   }
 }
 
+// let inputs = document.querySelectorAll('[type = text]');
+
+// console.log(inputs[0].hasAttribute('disabled'));
+
 
 salaryAmount.addEventListener('change', appData.salaryAmountControl);
-salaryAmount.addEventListener('onchange', console.log('1'));
 
-start.addEventListener('click', appData.start);
+start.addEventListener('click', appData.start.bind(appData));
+cancel.addEventListener('click', appData.cancel.bind(appData));
 
-btnExpensesAdd.addEventListener('click', appData.addExpensesBlock);
-btnIncomeAdd.addEventListener('click', appData.addIncomeBlock);
-periodSelect.addEventListener('input', appData.getPeriodAmount);
+btnIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData));
+btnExpensesAdd.addEventListener('click', appData.addExpensesBlock.bind(appData));
+periodSelect.addEventListener('input', appData.getPeriodAmount.bind(appData));
 
 appData.getInfoDeposit();
 appData.getTargetMonth();
 appData.getStatusIncome();
-
-
-// Вывод информации о текущем состоянии
-if (appData.getTargetMonth() > 0) {
-  console.log(appData.getStatusIncome());
-  console.log('Ваши расходы за месяц: ' + appData.expensesMonth);
-  // console.log('Все это уходит на: ' + addExpenses);
-  console.log('Бюджет на день: ' + appData.budgetDay);
-  console.log('Цель будет достигнута за ' + appData.getTargetMonth() + ' месяцев.');
-} else {
-    console.log('Вы за еду работаете? К сожалению, цель не будет достигнута.');
-  }
