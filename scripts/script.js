@@ -86,10 +86,6 @@ let appData = {
   expenses : {},
   start : function() {
 
-    // if (salaryAmount.value === '') {
-    //   alert('Поле "Месячный доход" должно быть заполнено!');
-    //   return;
-    // }
     appData.budget = +salaryAmount.value;
 
     appData.getExpenses();
@@ -107,6 +103,7 @@ let appData = {
     // Добавление атрибута "disabled" кнопке
     if (salaryAmount.value == '') {
       start.setAttribute('disabled', true);
+      start.style = 'opacity: .7; cursor: default;';
     } else
         start.removeAttribute('disabled');
     return;
