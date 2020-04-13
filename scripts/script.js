@@ -86,10 +86,10 @@ let appData = {
   expenses : {},
   start : function() {
 
-    if (salaryAmount.value === '') {
-      alert('Поле "Месячный доход" должно быть заполнено!');
-      return;
-    }
+    // if (salaryAmount.value === '') {
+    //   alert('Поле "Месячный доход" должно быть заполнено!');
+    //   return;
+    // }
     appData.budget = +salaryAmount.value;
 
     appData.getExpenses();
@@ -101,6 +101,17 @@ let appData = {
 
     appData.showResult();
   },
+
+  // Проверка на заполнение поля "Месячный доход"
+  salaryAmountControl : function() {
+    // Добавление атрибута "disabled" кнопке
+    if (salaryAmount.value == '') {
+      start.setAttribute('disabled', true);
+    } else
+        start.removeAttribute('disabled');
+    return;
+  },
+
   // Вывод результатов посчета
   showResult : function() {
     budgetMonthValue.value = appData.budgetMonth;
@@ -110,17 +121,29 @@ let appData = {
     additionalIncomeValue.value = appData.addIncome.join(', ');
     targetMonthValue.value = appData.getTargetMonth();
     incomePeriodValue.value = appData.accumulateMoney();
+
+    // periodSelect.addEventListener('input', appData.accumulateMoney);
   },
+
   // Функция добавления полей для доходов
   addIncomeBlock : function() {
 
     let cloneIncomeItem = incomeItems[0].cloneNode(true);
+
+    // Удаление значений в полях при добавлении
+    let eit = cloneIncomeItem.querySelector('.extra_income-title');
+    let eia = cloneIncomeItem.querySelector('.extra_income-amount');
+    eit.value = '';  
+    eia.value = '';
+    
+    // Добавление новых полей
     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomeAdd);
     incomeItems = document.querySelectorAll('.income-items');
     if (incomeItems.length === 3) {
       btnIncomeAdd.style.display = 'none';
     }   
   },
+
   // Получение данных из полей "Дополнительный доход"
   getIncome : function() {
 
@@ -136,16 +159,26 @@ let appData = {
         appData.incomeMonth += +appData.income[key];
       }
   },
+
   // Функция добавления полей для раcходов
   addExpensesBlock : function() {
 
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+
+    // Удаление значений в полях при добавлении
+    let ret = cloneExpensesItem.querySelector('.required_expenses-title');
+    let rea = cloneExpensesItem.querySelector('.required_expenses-amount');
+    ret.value = '';  
+    rea.value = '';
+    
+    // Добавление новых полей
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesAdd);
     expensesItems = document.querySelectorAll('.expenses-items');
     if (expensesItems.length === 3) {
       btnExpensesAdd.style.display = 'none';
     }   
   },
+
   // Получение данных из полей "Обязательные расходы"
   getExpenses : function() {
 
@@ -168,6 +201,7 @@ let appData = {
       }
     });
   },
+
   // Получение возможных доходов
   getAddIncome : function() {
     additionalIncomeItem.forEach(function(item){
@@ -214,21 +248,31 @@ let appData = {
       } while (!isNumber(appData.moneyDeposit));
     }
   },
+  // Смена цифры под ползунком
+  getPeriodAmount : function() {
+    periodAmount.textContent = periodSelect.value;
+  },
+  // Накопления за выбарнный период
   accumulateMoney :  function() {
     return appData.budgetMonth * periodSelect.value;
   }
 }
 
 
+salaryAmount.addEventListener('change', appData.salaryAmountControl);
+salaryAmount.addEventListener('onchange', console.log('1'));
 
 start.addEventListener('click', appData.start);
 
 btnExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 btnIncomeAdd.addEventListener('click', appData.addIncomeBlock);
+periodSelect.addEventListener('input', appData.getPeriodAmount);
+periodSelect.addEventListener('input', appData.accumulateMoney);
 
 appData.getInfoDeposit();
 appData.getTargetMonth();
 appData.getStatusIncome();
+
 
 // Вывод информации о текущем состоянии
 if (appData.getTargetMonth() > 0) {
@@ -240,17 +284,3 @@ if (appData.getTargetMonth() > 0) {
 } else {
     console.log('Вы за еду работаете? К сожалению, цель не будет достигнута.');
   }
-
-// Вывод в консоль всех свойств и значений объекта appData
-// console.log('Наша программа включает в себя следующие данные:');
-// for(let key in appData) {
-//   console.log('Свойство объекта: ' + key + '; его значение: ' + appData[key] + '.');
-// }
-
-// Вывод возможных расходов в консоль
-// let str = '';
-// for (let i = 0; i < appData.addExpenses.length; i++) {
-//   appData.addExpenses[i] = appData.addExpenses[i].trim();
-//   str = str + appData.addExpenses[i][0].toUpperCase() + appData.addExpenses[i].slice(1) + ', ';
-// }
-// console.log(str.slice(0, str.length - 2));
