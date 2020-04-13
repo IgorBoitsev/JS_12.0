@@ -297,11 +297,6 @@ let appData = {
   }
 }
 
-// let inputs = document.querySelectorAll('[type = text]');
-
-// console.log(inputs[0].hasAttribute('disabled'));
-
-
 salaryAmount.addEventListener('change', appData.salaryAmountControl);
 
 start.addEventListener('click', appData.start.bind(appData));
