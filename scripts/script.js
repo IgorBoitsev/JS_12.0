@@ -105,6 +105,20 @@ let appData = {
     this.blockUnblockTextInputs();
     this.clearAllTextInputs();
     this.salaryAmountControl();
+
+    // Обнуление всех значений в объекте
+    this.income = {};
+    this.deposit = false;
+    this.percentDeposit = 0;
+    this.moneyDeposit = 0;
+    this.addIncome = [];
+    this.incomeMonth = 0;
+    this.budget = 0;
+    this.budgetDay = 0;
+    this.budgetMonth = 0;
+    this.expensesMonth = 0;
+    this.addExpenses = [];
+    this.expenses = {};
   },
 
   // Проверка на заполнение поля "Месячный доход"
@@ -164,7 +178,7 @@ let appData = {
       if (itemIncome !== '' && cashIncome !== '') {
         this.income[itemIncome] = cashIncome;
       }
-    });
+    }, appData);
 
       for (let key in appData.income) {
         this.incomeMonth += +this.income[key];
@@ -199,7 +213,7 @@ let appData = {
       if (itemExpenses !== '' && cashExpenses !== '') {
         this.expenses[itemExpenses] = cashExpenses;
       }
-    });
+    }, appData);
   },
 
   // Получение возможных расходов
@@ -210,7 +224,7 @@ let appData = {
       if (item !== '') {
         this.addExpenses.push(item);
       }
-    });
+    }, appData);
   },
 
   // Получение возможных доходов
@@ -220,7 +234,7 @@ let appData = {
       if (itemValue !== '') {
         this.addIncome.push(itemValue);
       }
-    });
+    }, appData);
   },
 
   getExpensesMonth : function() {
