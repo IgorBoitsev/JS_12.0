@@ -99,7 +99,7 @@ let appData = {
   },
 
   // Функция сбороса всех данных
-  cancel : function() {
+  reset : function() {
 
     this.hideShowButtons();
     this.blockUnblockTextInputs();
@@ -303,7 +303,7 @@ let appData = {
 salaryAmount.addEventListener('change', appData.salaryAmountControl);
 
 start.addEventListener('click', appData.start.bind(appData));
-cancel.addEventListener('click', appData.cancel.bind(appData));
+cancel.addEventListener('click', appData.reset.bind(appData));
 
 btnIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData));
 btnExpensesAdd.addEventListener('click', appData.addExpensesBlock.bind(appData));
