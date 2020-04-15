@@ -67,6 +67,11 @@ let start = document.getElementById('start');
 // Кнопка "Сбросить"
 let cancel = document.getElementById('cancel');
 
+// Все текстовые поля для ввода наименования
+let inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+// Все текстовые поля для ввода суммы
+let inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+
 // Объявление используемого объекта
 let appData = {
   income : {},
@@ -84,18 +89,22 @@ let appData = {
   start : function() {
     
     this.budget = +salaryAmount.value;
+    
+    // if (this.inputsSumTextControl() === false) {
+    //   alert('Поля "Наименование" и "Сумма" должны содержать буквы русского алфавита и цифры соответственно.');
+    // } else {
+       this.getExpenses();
+        this.getIncome();
+        this.getExpensesMonth();
+        this.getAddExpenses();
+        this.getAddIncome();
+        this.getBudget();
 
-    this.getExpenses();
-    this.getIncome();
-    this.getExpensesMonth();
-    this.getAddExpenses();
-    this.getAddIncome();
-    this.getBudget();
+        this.showResult();
 
-    this.showResult();
-
-    this.hideShowButtons();
-    this.blockUnblockTextInputs();
+        this.hideShowButtons();
+        this.blockUnblockTextInputs();
+      // }
   },
 
   // Функция сбороса всех данных
@@ -166,7 +175,11 @@ let appData = {
     incomeItems = document.querySelectorAll('.income-items');
     if (incomeItems.length === 3) {
       btnIncomeAdd.style.display = 'none';
-    }   
+    }
+
+    // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
+    inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+    inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
   },
 
   // Получение данных из полей "Дополнительный доход"
@@ -201,7 +214,11 @@ let appData = {
     expensesItems = document.querySelectorAll('.expenses-items');
     if (expensesItems.length === 3) {
       btnExpensesAdd.style.display = 'none';
-    }   
+    }
+
+    // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
+    inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+    inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
   },
 
   // Получение данных из полей "Обязательные расходы"
@@ -311,28 +328,38 @@ let appData = {
     textInputs.forEach(function(item){
       item.value = '';
     });
-  }
+    
+    periodSelect.value = 1;
+    periodAmount.textContent = periodSelect.value;
+  },
+
+  // Функция проверки правильности ввода данных (формата данных)
+  // inputsSumTextControl : function() {
+  //   let errors = false;
+
+  //   inputsName.forEach(function(inputElem){
+  //     if (inputElem.value.match(/\p{sc=Cyrillic}/g) !== null || inputElem.value == '') {
+  //       inputElem.style = 'background: #ff5a5a';
+  //       errors = true;
+  //     }
+  //     // else
+  //     //   inputElem.style = 'background: none';
+  //   });
+
+  //   inputsSum.forEach(function(inputElem){
+  //     if (inputElem.value.match(/\D/g) !== null || inputElem.value == '') {
+  //       inputElem.style = 'background: #ff5a5a';
+  //       errors = true;
+  //     }
+  //     // else
+  //     //   inputElem.style = 'background: none';
+  //   });
+
+  //   return errors;
+  // }
 }
 
 salaryAmount.addEventListener('change', appData.salaryAmountControl);
-
-// ========================================
-
-// Проверка ввода данных в полях
-// Можно ли как-нибудь оформить одной функцией для всех инпутов?
-let inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
-
-let inputsSumControl = function(){
-  // Проверка на наличие НЕцифровых символов
-  if (this.value.match(/\D/g) !== null)
-    this.style = 'background: #ff5a5a';
-  else
-    this.style = 'background: #5aff5f';
-}
-
-inputsSum[0].addEventListener('change', inputsSumControl);
-
-// ========================================
 
 start.addEventListener('click', appData.start.bind(appData));
 cancel.addEventListener('click', appData.reset.bind(appData));
