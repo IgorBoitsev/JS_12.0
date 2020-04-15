@@ -316,6 +316,24 @@ let appData = {
 
 salaryAmount.addEventListener('change', appData.salaryAmountControl);
 
+// ========================================
+
+// Проверка ввода данных в полях
+// Можно ли как-нибудь оформить одной функцией для всех инпутов?
+let inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+
+let inputsSumControl = function(){
+  // Проверка на наличие НЕцифровых символов
+  if (this.value.match(/\D/g) !== null)
+    this.style = 'background: #ff5a5a';
+  else
+    this.style = 'background: #5aff5f';
+}
+
+inputsSum[0].addEventListener('change', inputsSumControl);
+
+// ========================================
+
 start.addEventListener('click', appData.start.bind(appData));
 cancel.addEventListener('click', appData.reset.bind(appData));
 
