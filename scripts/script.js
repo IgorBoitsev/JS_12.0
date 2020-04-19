@@ -293,8 +293,10 @@ class AppData {
   }
 
   getBudget() {
+
+    const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
     // Величина накоплений за месяц
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     // Бюджет на каждый день (округленный)
     this.budgetDay = Math.floor(this.budgetMonth/30);
     return;
@@ -321,6 +323,23 @@ class AppData {
     if (this.deposit) {
       this.percentDeposit = depositPercent.value;
       this.moneyDeposit = depositAmount.value;
+    }
+  }
+
+  changePercent() {
+    const selectValue = this.value;
+    if (selectValue === 'other') {
+      depositPercent.style.display = 'inline-block';
+      depositPercent.addEventListener('change', () => {
+        if(depositPercent.value < 0 || depositPercent.value > 100)
+          alert('Введите процентную ставку в диапазоне от 0 до 100');
+          depositPercent.value = '';
+      });
+    } else {
+      depositPercent.style.display = 'none';
+      depositPercent.value = '';
+      depositPercent.value = selectValue;
+    }
   }
 
   // Выбор процентной ставки банка
