@@ -202,13 +202,18 @@ class AppData {
 
   // Добавление полей для расходов и доходов
   addExpIncBlock() {
+    const target = event.target.className.split(' ')[1];
+
     const add = (item, btn) => {
-      const cloneItem = item[0].cloneNode(true);
-      const type = item[0].querySelector('input').className.split('-')[0];
-      console.log(type);
+      let cloneItem = item[0].cloneNode(true);
+      console.log(cloneItem);
+      
+      let type = item[0].querySelector('input').className.split('-')[0];
+      console.log(cloneItem.querySelector(`.${type}-title`));
+      
       // Удаление значений в полях при добавлении
-      let title = cloneItem.querySelector(`${type}-title`);
-      let amount = cloneItem.querySelector(`${type}-amount`);
+      let title = cloneItem.querySelector(`.${type}-title`);
+      let amount = cloneItem.querySelector(`.${type}-amount`);
       console.log(title);
       
       title.value = '';
@@ -217,14 +222,17 @@ class AppData {
       // Добавление новых полей
       item[0].parentNode.insertBefore(cloneItem, btn);
       const cl = item[0].className.split('-')[0]
-      item = document.querySelectorAll(`${cl}-items`);
+      item = document.querySelectorAll(`.${cl}-items`);
       if (item.length === 3) {
         btn.style.display = 'none';
       }
     }
 
-    // add(incomeItems, btnIncomeAdd);
-    // add(expensesItems, btnExpensesAdd);
+    if (target == 'income_add') {
+      add(incomeItems, btnIncomeAdd);
+    } else {
+        add(expensesItems, btnExpensesAdd);
+    }
   }
 
   // Поулчение данных из полей "Дополнительные доходы" и "Обязательные расходы"
