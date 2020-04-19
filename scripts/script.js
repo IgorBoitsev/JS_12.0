@@ -1,76 +1,76 @@
 'use strict';
 
 // Поле "Месячный доход"
-let salaryAmount = document.querySelector('.salary-amount');
+const salaryAmount = document.querySelector('.salary-amount');
 
 // Блок полей "Дополнительный доход"
-let incomeItems = document.querySelectorAll('.income-items');
+const incomeItems = document.querySelectorAll('.income-items');
 // Поле "Дополнительный доход (наименование)"
-let extraIncomeTitle = document.querySelector('.extra_income-title');
+const extraIncomeTitle = document.querySelector('.extra_income-title');
 // Поле "Дополнительный доход (сумма)"
-let extraIncomeAmount = document.querySelector('.extra_income-amount');
+const extraIncomeAmount = document.querySelector('.extra_income-amount');
 
 // Кнопка добавления дополнительного дохода
-let btnIncomeAdd = document.getElementsByTagName('button')[0];
+const btnIncomeAdd = document.getElementsByTagName('button')[0];
 
 // Поле "Возможный доход"
-let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
 
 // Блок полей "Обязательные расходы"
-let expensesItems = document.querySelectorAll('.expenses-items');
+const expensesItems = document.querySelectorAll('.expenses-items');
 // Поле "Обязательные расходы (наименование)"
-let requiredExpensesTitle = document.querySelector('.required_expenses-title');
+const requiredExpensesTitle = document.querySelector('.required_expenses-title');
 // Поле "Обязательные расходы (сумма)"
-let requiredExpensesAmount = document.querySelector('.required_expenses-amount');
+const requiredExpensesAmount = document.querySelector('.required_expenses-amount');
 
 // Кнопка добавления обязательных расходов
-let btnExpensesAdd = document.getElementsByTagName('button')[1];
+const btnExpensesAdd = document.getElementsByTagName('button')[1];
 
 // Поле "Возможные расходы"
-let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+const additionalExpensesItem = document.querySelector('.additional_expenses-item');
 
 // Чекбокс для депозита
-let depositCheck = document.getElementById('deposit-check');
+const depositCheck = document.getElementById('deposit-check');
 
 // Поле "Цель"
-let targetAmount = document.querySelector('.target-amount');
+const targetAmount = document.querySelector('.target-amount');
 
 // Ползунок "Период расчета"
-let periodSelect = document.querySelector('.period-select');
+const periodSelect = document.querySelector('.period-select');
 // Цифра под ползунком
-let periodAmount = document.querySelector('.period-amount');
+const periodAmount = document.querySelector('.period-amount');
 
 // Поле "Доход за месяц"
-let budgetMonthValue = document.getElementsByClassName('result-total')[0];
+const budgetMonthValue = document.getElementsByClassName('result-total')[0];
 
 // Поле "Дневной бюджет"
-let budgetDayValue = document.getElementsByClassName('result-total')[1];
+const budgetDayValue = document.getElementsByClassName(`result-total`)[1];
 
 // Поле "Расход за месяц"
-let expensesMonthValue = document.getElementsByClassName('result-total')[2];
+const expensesMonthValue = document.getElementsByClassName('result-total')[2];
 
 // Поле "Возможные доходы"
-let additionalIncomeValue = document.getElementsByClassName('result-total')[3];
+const additionalIncomeValue = document.getElementsByClassName('result-total')[3];
 
 // Поле "Возможные расходы"
-let additionalExpensesValue = document.getElementsByClassName('result-total')[4];
+const additionalExpensesValue = document.getElementsByClassName('result-total')[4];
 
 // Поле "Накопления за период"
-let incomePeriodValue = document.getElementsByClassName('result-total')[5];
+const incomePeriodValue = document.getElementsByClassName('result-total')[5];
 
 // Поле "Срок достижения цели в месяцах"
-let targetMonthValue = document.getElementsByClassName('result-total')[6];
+const targetMonthValue = document.getElementsByClassName('result-total')[6];
 
 // Кнопка "Рассчитать"
-let start = document.getElementById('start');
+const start = document.getElementById('start');
 
 // Кнопка "Сбросить"
-let cancel = document.getElementById('cancel');
+const cancel = document.getElementById('cancel');
 
 // Все текстовые поля для ввода наименования
-let inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+const inputsName = document.querySelectorAll('[placeholder="Наименование"]');
 // Все текстовые поля для ввода суммы
-let inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+const inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
 
 const AppData = function() {
   this.income = {};
@@ -88,7 +88,7 @@ const AppData = function() {
   
 };
 
-AppData.prototype.salaryAmountControl = function() {
+AppData.prototype.salaryAmountControl = () => {
   // Добавление атрибута "disabled" кнопке
   if (salaryAmount.value == '') {
     start.setAttribute('disabled', true);
@@ -141,22 +141,9 @@ AppData.prototype.reset = function() {
   this.expenses = {};
 };
 
-// Проверка на заполнение поля "Месячный доход"
-AppData.prototype.salaryAmountControl = function() {
-  // Добавление атрибута "disabled" кнопке
-  if (salaryAmount.value == '') {
-    start.setAttribute('disabled', true);
-    start.style = 'opacity: .7; cursor: default;';
-  } else {
-      start.removeAttribute('disabled');
-      start.style = 'opacity: 1; cursor: pointer;';
-    }
-  return;
-};
-
 // Вывод результатов посчета
 AppData.prototype.showResult = function() {
-  let _this = this;
+  const _this = this;
   budgetMonthValue.value = this.budgetMonth;
   budgetDayValue.value = this.budgetDay;
   expensesMonthValue.value = this.expensesMonth;
@@ -173,11 +160,11 @@ AppData.prototype.showResult = function() {
 
 // Добалвение полей для доходов
 AppData.prototype.addIncomeBlock = function() {
-  let cloneIncomeItem = incomeItems[0].cloneNode(true);
+  const cloneIncomeItem = incomeItems[0].cloneNode(true);
 
   // Удаление значений в полях при добавлении
-  let eit = cloneIncomeItem.querySelector('.extra_income-title');
-  let eia = cloneIncomeItem.querySelector('.extra_income-amount');
+  const eit = cloneIncomeItem.querySelector('.extra_income-title');
+  const eia = cloneIncomeItem.querySelector('.extra_income-amount');
   eit.value = '';  
   eia.value = '';
   
@@ -195,27 +182,26 @@ AppData.prototype.addIncomeBlock = function() {
 
 // Получение данных из полей "Дополнительный доход"
 AppData.prototype.getIncome = function() {
-  let _this = this;
-  incomeItems.forEach(function(item){
-    let itemIncome = item.querySelector('.extra_income-title').value;
-    let cashIncome = item.querySelector('.extra_income-amount').value;
+  incomeItems.forEach((item) => {
+    const itemIncome = item.querySelector('.extra_income-title').value;
+    const cashIncome = item.querySelector('.extra_income-amount').value;
     if (itemIncome !== '' && cashIncome !== '') {
-      _this.income[itemIncome] = cashIncome;
+      this.income[itemIncome] = cashIncome;
     }
-  }/*, appData*/);
+  });
 
-    for (let key in _this.income) {
-      _this.incomeMonth += +_this.income[key];
+    for (let key in this.income) {
+      this.incomeMonth += +this.income[key];
     }
 };
 
 // Добавление полей для раcходов
 AppData.prototype.addExpensesBlock = function() {
-  let cloneExpensesItem = expensesItems[0].cloneNode(true);
+  const cloneExpensesItem = expensesItems[0].cloneNode(true);
 
   // Удаление значений в полях при добавлении
-  let ret = cloneExpensesItem.querySelector('.required_expenses-title');
-  let rea = cloneExpensesItem.querySelector('.required_expenses-amount');
+  const ret = cloneExpensesItem.querySelector('.required_expenses-title');
+  const rea = cloneExpensesItem.querySelector('.required_expenses-amount');
   ret.value = '';  
   rea.value = '';
   
@@ -233,37 +219,34 @@ AppData.prototype.addExpensesBlock = function() {
 
 // Получение данных из полей "Обязательные расходы"
 AppData.prototype.getExpenses = function() {
-  let _this = this;
-  expensesItems.forEach(function(item){
-    let itemExpenses = item.querySelector('.required_expenses-title').value;
-    let cashExpenses = item.querySelector('.required_expenses-amount').value;
+  expensesItems.forEach((item) => {
+    const itemExpenses = item.querySelector('.required_expenses-title').value;
+    const cashExpenses = item.querySelector('.required_expenses-amount').value;
     if (itemExpenses !== '' && cashExpenses !== '') {
-      _this.expenses[itemExpenses] = cashExpenses;
+      this.expenses[itemExpenses] = cashExpenses;
     }
-  }/*, appData*/);
+  });
 };
 
 // Получение возможных расходов
 AppData.prototype.getAddExpenses = function() {
-  let _this = this;
-  let addExpenses = additionalExpensesItem.value.split(',');
-  addExpenses.forEach(function(item){
+  const addExpenses = additionalExpensesItem.value.split(',');
+  addExpenses.forEach((item) => {
     item = item.trim();
     if (item !== '') {
-      _this.addExpenses.push(item);
+      this.addExpenses.push(item);
     }
-  }/*, appData*/);
+  });
 };
 
 // Получение возможных доходов
 AppData.prototype.getAddIncome = function() {
-  let _this = this;
-  additionalIncomeItem.forEach(function(item){
-    let itemValue = item.value.trim();
+  additionalIncomeItem.forEach((item) => {
+    const itemValue = item.value.trim();
     if (itemValue !== '') {
-      _this.addIncome.push(itemValue);
+      this.addIncome.push(itemValue);
     }
-  }/*, appData*/);
+  });
 };
 
 AppData.prototype.getExpensesMonth = function() {
@@ -332,8 +315,8 @@ AppData.prototype.hideShowButtons = function() {
 
 // Блокировка/разблокировка всех инпутов после нажатия кнопки "Рассчитать"
 AppData.prototype.blockUnblockTextInputs = function() {
-  let textInputs = document.querySelectorAll('[type = text]');
-  textInputs.forEach(function(item){
+  const textInputs = document.querySelectorAll('[type = text]');
+  textInputs.forEach((item) => {
     if (item.hasAttribute('disabled') == false) {
       item.setAttribute('disabled', true);
     } else {
@@ -344,7 +327,7 @@ AppData.prototype.blockUnblockTextInputs = function() {
 
 // Функция очистки всех текстовых полей
 AppData.prototype.clearAllTextInputs = function() {
-  let textInputs = document.querySelectorAll('[type = text]');
+  const textInputs = document.querySelectorAll('[type = text]');
   textInputs.forEach(function(item){
     item.value = '';
   });
