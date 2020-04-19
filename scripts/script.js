@@ -3,30 +3,30 @@
 // Поле "Месячный доход"
 const salaryAmount = document.querySelector('.salary-amount');
 
-// Блок полей "Дополнительный доход"
-const incomeItems = document.querySelectorAll('.income-items');
+// Блок полей "Дополнительный доход" ---------------------
+let incomeItems = document.querySelectorAll('.income-items');
 // Поле "Дополнительный доход (наименование)"
-const extraIncomeTitle = document.querySelector('.extra_income-title');
+let extraIncomeTitle = document.querySelector('.extra_income-title');
 // Поле "Дополнительный доход (сумма)"
-const extraIncomeAmount = document.querySelector('.extra_income-amount');
+let extraIncomeAmount = document.querySelector('.extra_income-amount');
 
 // Кнопка добавления дополнительного дохода
 const btnIncomeAdd = document.getElementsByTagName('button')[0];
 
-// Поле "Возможный доход"
+// Поле "Возможный доход" -------------------
 const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
 
 // Блок полей "Обязательные расходы"
-const expensesItems = document.querySelectorAll('.expenses-items');
+let expensesItems = document.querySelectorAll('.expenses-items');
 // Поле "Обязательные расходы (наименование)"
-const requiredExpensesTitle = document.querySelector('.required_expenses-title');
+let requiredExpensesTitle = document.querySelector('.required_expenses-title');
 // Поле "Обязательные расходы (сумма)"
-const requiredExpensesAmount = document.querySelector('.required_expenses-amount');
+let requiredExpensesAmount = document.querySelector('.required_expenses-amount');
 
 // Кнопка добавления обязательных расходов
 const btnExpensesAdd = document.getElementsByTagName('button')[1];
 
-// Поле "Возможные расходы"
+// Поле "Возможные расходы" ---------------------
 const additionalExpensesItem = document.querySelector('.additional_expenses-item');
 
 // Чекбокс для депозита
@@ -106,11 +106,9 @@ class AppData {
     // if (this.inputsSumTextControl() === false) {
     //   alert('Поля "Наименование" и "Сумма" должны содержать буквы русского алфавита и цифры соответственно.');
     // } else {
-        this.getExpenses();
-        this.getIncome();
+        this.getExpInc();
         this.getExpensesMonth();
-        this.getAddExpenses();
-        this.getAddIncome();
+        this.getAddExpInc();
         this.getBudget();
   
         this.showResult();
@@ -158,74 +156,95 @@ class AppData {
     });
   }
 
-  // Добалвение полей для доходов
-  addIncomeBlock() {
-    const cloneIncomeItem = incomeItems[0].cloneNode(true);
+  // // Добалвение полей для доходов
+  // addIncomeBlock() {
+  //   const cloneIncomeItem = incomeItems[0].cloneNode(true);
 
-    // Удаление значений в полях при добавлении
-    const eit = cloneIncomeItem.querySelector('.extra_income-title');
-    const eia = cloneIncomeItem.querySelector('.extra_income-amount');
-    eit.value = '';  
-    eia.value = '';
+  //   // Удаление значений в полях при добавлении
+  //   const eit = cloneIncomeItem.querySelector('.extra_income-title');
+  //   const eia = cloneIncomeItem.querySelector('.extra_income-amount');
+  //   eit.value = '';  
+  //   eia.value = '';
     
-    // Добавление новых полей
-    incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomeAdd);
-    incomeItems = document.querySelectorAll('.income-items');
-    if (incomeItems.length === 3) {
-      btnIncomeAdd.style.display = 'none';
+  //   // Добавление новых полей
+  //   incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomeAdd);
+  //   incomeItems = document.querySelectorAll('.income-items');
+  //   if (incomeItems.length === 3) {
+  //     btnIncomeAdd.style.display = 'none';
+  //   }
+
+  //   // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
+  //   inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+  //   inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+  // }
+
+  // // Добавление полей для раcходов
+  // addExpensesBlock() {
+  //   const cloneExpensesItem = expensesItems[0].cloneNode(true);
+
+  //   // Удаление значений в полях при добавлении
+  //   const ret = cloneExpensesItem.querySelector('.required_expenses-title');
+  //   const rea = cloneExpensesItem.querySelector('.required_expenses-amount');
+  //   ret.value = '';  
+  //   rea.value = '';
+    
+  //   // Добавление новых полей
+  //   expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesAdd);
+  //   expensesItems = document.querySelectorAll('.expenses-items');
+  //   if (expensesItems.length === 3) {
+  //     btnExpensesAdd.style.display = 'none';
+  //   }
+
+  //   // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
+  //   inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+  //   inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+  // }
+
+  // Добавление полей для расходов и доходов
+  addExpIncBlock() {
+    const add = (item, btn) => {
+      const cloneItem = item[0].cloneNode(true);
+      const type = item[0].querySelector('input').className.split('-')[0];
+      console.log(type);
+      // Удаление значений в полях при добавлении
+      let title = cloneItem.querySelector(`${type}-title`);
+      let amount = cloneItem.querySelector(`${type}-amount`);
+      console.log(title);
+      
+      title.value = '';
+      amount.value = '';
+
+      // Добавление новых полей
+      item[0].parentNode.insertBefore(cloneItem, btn);
+      const cl = item[0].className.split('-')[0]
+      item = document.querySelectorAll(`${cl}-items`);
+      if (item.length === 3) {
+        btn.style.display = 'none';
+      }
     }
 
-    // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
-    inputsName = document.querySelectorAll('[placeholder="Наименование"]');
-    inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+    // add(incomeItems, btnIncomeAdd);
+    // add(expensesItems, btnExpensesAdd);
   }
 
-  // Получение данных из полей "Дополнительный доход"
-  getIncome() {
-    incomeItems.forEach((item) => {
-      const itemIncome = item.querySelector('.extra_income-title').value;
-      const cashIncome = item.querySelector('.extra_income-amount').value;
-      if (itemIncome !== '' && cashIncome !== '') {
-        this.income[itemIncome] = cashIncome;
+  // Поулчение данных из полей "Дополнительные доходы" и "Обязательные расходы"
+  getExpInc() {
+    const count = item => {
+      const type = item.className.split('-')[0];
+      const startStr = item.querySelectorAll('input')[0].className.split('-')[0];
+      const itemTitle = item.querySelector(`.${startStr}-title`).value;
+      const itemAmount = item.querySelector(`.${startStr}-amount`).value;
+      if (itemTitle !== '' && itemAmount !== '') {
+        this[type][itemTitle] = itemAmount;
       }
-    });
-
-      for (let key in this.income) {
-        this.incomeMonth += +this.income[key];
-      }
-  }
-
-  // Добавление полей для раcходов
-  addExpensesBlock() {
-    const cloneExpensesItem = expensesItems[0].cloneNode(true);
-
-    // Удаление значений в полях при добавлении
-    const ret = cloneExpensesItem.querySelector('.required_expenses-title');
-    const rea = cloneExpensesItem.querySelector('.required_expenses-amount');
-    ret.value = '';  
-    rea.value = '';
-    
-    // Добавление новых полей
-    expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesAdd);
-    expensesItems = document.querySelectorAll('.expenses-items');
-    if (expensesItems.length === 3) {
-      btnExpensesAdd.style.display = 'none';
     }
 
-    // Обновляем текстовые поля для вводимых данных (для дальнейшей проверки)
-    inputsName = document.querySelectorAll('[placeholder="Наименование"]');
-    inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
-  }
+    incomeItems.forEach(count);
+    for (let key in this.income) {
+      this.incomeMonth += +this.income[key];
+    }
 
-  // Получение данных из полей "Обязательные расходы"
-  getExpenses() {
-    expensesItems.forEach((item) => {
-      const itemExpenses = item.querySelector('.required_expenses-title').value;
-      const cashExpenses = item.querySelector('.required_expenses-amount').value;
-      if (itemExpenses !== '' && cashExpenses !== '') {
-        this.expenses[itemExpenses] = cashExpenses;
-      }
-    });
+    expensesItems.forEach(count);
   }
 
   // Получение возможных расходов
@@ -248,6 +267,18 @@ class AppData {
       }
     });
   }
+
+  // Получение возможных расходов и возможных доходов
+  // getAddExpInc() {
+    // const count = item => {
+    //   console.log(item);
+
+
+    // }
+    
+    // additionalIncomeItem.forEach(count);
+    // additionalExpensesItem.value.split(',').forEach(count);
+  // }
 
   getExpensesMonth() {
     // Суммарная величина обязательных ваплат за месяц 
@@ -365,8 +396,8 @@ class AppData {
     salaryAmount.addEventListener('change', this.salaryAmountControl);
     start.addEventListener('click', this.start.bind(this));
     cancel.addEventListener('click', this.reset.bind(this));
-    btnIncomeAdd.addEventListener('click', this.addIncomeBlock.bind(appData));
-    btnExpensesAdd.addEventListener('click', this.addExpensesBlock.bind(this));
+    btnIncomeAdd.addEventListener('click', this.addExpIncBlock.bind(this));
+    btnExpensesAdd.addEventListener('click', this.addExpIncBlock.bind(this));
     periodSelect.addEventListener('input', this.getPeriodAmount.bind(this));
   }
 };
