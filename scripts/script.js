@@ -74,9 +74,9 @@ const start = document.getElementById('start');
 const cancel = document.getElementById('cancel');
 
 // Все текстовые поля для ввода наименования
-const inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+// const inputsName = document.querySelectorAll('[placeholder="Наименование"]');
 // Все текстовые поля для ввода суммы
-const inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
+// const inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
 
 class AppData {
   constructor() {
@@ -109,9 +109,9 @@ class AppData {
   start() {
     this.budget = +salaryAmount.value;
     
-    // if (this.inputsSumTextControl() === false) {
-    //   alert('Поля "Наименование" и "Сумма" должны содержать буквы русского алфавита и цифры соответственно.');
-    // } else {
+    if (this.inputsSumTextControl()) {
+      alert('Поля "Наименование" и "Сумма" должны содержать буквы русского алфавита и цифры соответственно.');
+    } else {
         this.getExpInc();
         this.getExpensesMonth();
         this.getAddIncome();
@@ -123,7 +123,12 @@ class AppData {
   
         this.hideShowButtons();
         this.blockUnblockTextInputs();
-      // }
+      }
+
+      // Записываем данные в LocalStorage
+      // localStorage.setItem('appData', JSON.stringify(appData));
+      // console.log(localStorage.appData);
+      
   }
 
   // Сброс всех данных
@@ -145,6 +150,9 @@ class AppData {
     this.expensesMonth = 0;
     this.addExpenses = [];
     this.expenses = {};
+
+    // Удаление данных из LocalStorage
+    // localStorage.removeItem('appData');
   }
 
   // Вывод результатов посчета
@@ -162,6 +170,8 @@ class AppData {
     periodSelect.addEventListener('input', function(){
       incomePeriodValue.value = _this.accumulateMoney();
     });
+
+// document.querySelector('.result').querySelectorAll('[type=text]').forEach((item) => console.log(item.value));
   }
 
   // // Добалвение полей для доходов
@@ -280,7 +290,7 @@ class AppData {
     });
   }
 
-  // Получение возможных расходов и возможных доходов
+  // Получение возможных расходов и возможных доходов ***из урока 15***
   // getAddExpInc() {
 
   // }
@@ -387,6 +397,7 @@ class AppData {
     textInputs.forEach((item) => {
       if (item.hasAttribute('disabled') == false) {
         item.setAttribute('disabled', true);
+        item.style.background = '#ebebe4';
       } else {
         item.removeAttribute('disabled');
       }
@@ -405,29 +416,31 @@ class AppData {
   }
 
   // Проверка правильности ввода данных (формата данных) ***из урока 12***
-  // inputsSumTextControl() {
-  //   let errors = false;
+  inputsSumTextControl() {
+    let errors = false;
+    let inputsName = document.querySelectorAll('[placeholder="Наименование"]');
+    let inputsSum = document.querySelectorAll('[placeholder="Сумма"]');
 
-  //   inputsName.forEach(function(inputElem){
-  //     if (inputElem.value.match(/\p{sc=Cyrillic}/g) !== null || inputElem.value == '') {
-  //       inputElem.style = 'background: #ff5a5a';
-  //       errors = true;
-  //     }
-  //     // else
-  //     //   inputElem.style = 'background: none';
-  //   });
+    inputsName.forEach(function(inputElem){
+      if (inputElem.value.match(/\d/g) !== null) {
+        inputElem.style = 'background: #ff5a5a';
+        errors = true;
+      }
+      else
+        inputElem.style = 'background: none';
+    });
 
-  //   inputsSum.forEach(function(inputElem){
-  //     if (inputElem.value.match(/\D/g) !== null || inputElem.value == '') {
-  //       inputElem.style = 'background: #ff5a5a';
-  //       errors = true;
-  //     }
-  //     // else
-  //     //   inputElem.style = 'background: none';
-  //   });
+    inputsSum.forEach(function(inputElem){
+      if (inputElem.value.match(/\p{sc=Cyrillic}/gu) !== null) {
+        inputElem.style = 'background: #ff5a5a';
+        errors = true;
+      }
+      else
+        inputElem.style = 'background: none';
+    });
 
-  //   return errors;
-  // }
+    return errors;
+  }
 
   eventsListeners = function() {
     salaryAmount.addEventListener('change', this.salaryAmountControl);
@@ -440,6 +453,12 @@ class AppData {
   }
 };
 
-
 const appData = new AppData();
+// let appData2 = new AppData();
+// appData2 = JSON.parse(localStorage.getItem('appData'));
+// console.log(appData2);
+// console.log(document.querySelector('.result').querySelectorAll('[type=text]'));
+// document.querySelector('.result').querySelectorAll('[type=text]').forEach((item) => console.log(item.value));
+
+appData.inputsSumTextControl(); 
 appData.eventsListeners();
