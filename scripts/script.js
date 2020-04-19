@@ -31,6 +31,12 @@ const additionalExpensesItem = document.querySelector('.additional_expenses-item
 
 // Чекбокс для депозита
 const depositCheck = document.getElementById('deposit-check');
+// Название банка
+const depositBank = document.querySelector('.deposit-bank');
+// Сумма вклада
+const depositAmount = document.querySelector('.deposit-amount');
+// Процентная ставка
+const depositPercent = document.querySelector('.deposit-percent');
 
 // Поле "Цель"
 const targetAmount = document.querySelector('.target-amount');
@@ -110,6 +116,7 @@ class AppData {
         this.getExpensesMonth();
         this.getAddIncome();
         this.getAddExpenses();
+        this.getInfoDeposit();
         this.getBudget();
   
         this.showResult();
@@ -310,16 +317,29 @@ class AppData {
   //           }
   // }
 
-  // getInfoDeposit() {
-  //   if (this.deposit) {
-  //     do {
-  //       this.percentDeposit = +prompt('Какой годовой процент?', '6');
-  //     } while (!isNumber(this.percentDeposit));
-  //     do {
-  //       this.moneyDeposit = +prompt('Какая сумма заложена?', '37000');
-  //     } while (!isNumber(this.moneyDeposit));
-  //   }
-  // }
+  getInfoDeposit() {
+    if (this.deposit) {
+      this.percentDeposit = depositPercent.value;
+      this.moneyDeposit = depositAmount.value;
+  }
+
+  // Выбор процентной ставки банка
+  depositHandler() {
+    if (depositCheck.checked) {
+      depositBank.style.display = 'inline-block';
+      depositAmount.style.display = 'inline-block';
+      this.deposit = true;
+      depositBank.addEventListener('change', this.changePercent);
+    } else {
+      depositBank.style.display = 'none';
+      depositAmount.style.display = 'none';
+      depositBank.value = '';
+      depositAmount.value = '';
+      this.deposit = false;
+      depositBank.removeEventListener('change', this.changePercent);
+    }
+    
+  }
 
   // Смена цифры под ползунком
   getPeriodAmount() {
@@ -397,6 +417,7 @@ class AppData {
     btnIncomeAdd.addEventListener('click', this.addExpIncBlock.bind(this));
     btnExpensesAdd.addEventListener('click', this.addExpIncBlock.bind(this));
     periodSelect.addEventListener('input', this.getPeriodAmount.bind(this));
+    depositCheck.addEventListener('change', this.depositHandler.bind(this));
   }
 };
 
