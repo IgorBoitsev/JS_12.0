@@ -108,7 +108,8 @@ class AppData {
     // } else {
         this.getExpInc();
         this.getExpensesMonth();
-        this.getAddExpInc();
+        this.getAddIncome();
+        this.getAddExpenses();
         this.getBudget();
   
         this.showResult();
