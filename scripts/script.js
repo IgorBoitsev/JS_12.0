@@ -353,7 +353,7 @@ AppData.prototype.clearAllTextInputs = function() {
   periodAmount.textContent = periodSelect.value;
 };
 
-// Проверка правильности ввода данных (формата данных)
+// Проверка правильности ввода данных (формата данных) ***из урока 12***
 // AppData.prototype.inputsSumTextControl = function() {
 //   let errors = false;
 
