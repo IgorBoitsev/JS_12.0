@@ -206,15 +206,11 @@ class AppData {
 
     const add = (item, btn) => {
       let cloneItem = item[0].cloneNode(true);
-      console.log(cloneItem);
-      
       let type = item[0].querySelector('input').className.split('-')[0];
-      console.log(cloneItem.querySelector(`.${type}-title`));
       
       // Удаление значений в полях при добавлении
       let title = cloneItem.querySelector(`.${type}-title`);
       let amount = cloneItem.querySelector(`.${type}-amount`);
-      console.log(title);
       
       title.value = '';
       amount.value = '';
