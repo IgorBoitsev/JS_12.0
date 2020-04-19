@@ -275,14 +275,7 @@ class AppData {
 
   // Получение возможных расходов и возможных доходов
   // getAddExpInc() {
-    // const count = item => {
-    //   console.log(item);
 
-
-    // }
-    
-    // additionalIncomeItem.forEach(count);
-    // additionalExpensesItem.value.split(',').forEach(count);
   // }
 
   getExpensesMonth() {
